@@ -4,6 +4,7 @@ const decksController = require("../decks/decks.controller")
 router
     .route("/")
     .get(decksController.list)
+    .post(decksController.create)
     .all(methodNotAllowed)
 router
     .route("/_embed=cards")
@@ -11,7 +12,10 @@ router
     .all(methodNotAllowed)
 router
     .route("/:deckId")
+    .put(decksController.update)
     .get(decksController.read)
+
+    .all(methodNotAllowed)
 
 
 module.exports = router;

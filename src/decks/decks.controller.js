@@ -8,7 +8,6 @@ const decks = require(path.resolve("src/data/decks-data"));
 const cards = require(path.resolve("src/data/cards-data"));
 
 //use this function to assign ID's
-const nextId = require("../utils/nextId");
 
 function list(req, res, next) {
 
@@ -36,12 +35,40 @@ function read(req,res,next) {
         foundDeck.cards = newCards
         res.json(foundDeck)
     }
+}
 
+function update(req,res,next){
+   const {deckId} = req.params;
 
+        const foundDeck = decks.find((deck)=> {
+            return Number(deckId) === deck.id;
+        });
+    console.log('found 0', foundDeck )
+
+    console.log('data', req.body)
+        foundDeck.name = req.body.name;
+        foundDeck.description = req.body.description;
+    console.log('found', foundDeck )
+        res.status(201).json({ data: foundDeck });
 
 }
 
+function create(req,res,next){
+    console.log('in create')
+    const
+         { name, description }
+     = req.body;
+    const newDeck = {
+        id: decks.length + 1,
+        name,
+        description,
+    };
+    decks.push(newDeck);
+    res.status(201).json({ data: newDeck });
+}
 module.exports = {
     list,
-    read
+    read,
+    update,
+    create
 }
