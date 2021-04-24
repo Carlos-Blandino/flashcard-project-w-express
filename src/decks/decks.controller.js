@@ -54,7 +54,6 @@ function update(req,res,next){
 }
 
 function create(req,res,next){
-    console.log('in create')
     const
          { name, description }
      = req.body;
@@ -66,9 +65,17 @@ function create(req,res,next){
     decks.push(newDeck);
     res.status(201).json({ data: newDeck });
 }
+function destroy(req, res, next) {
+    const { orderId } = req.params;
+    const index = decks.findIndex((order) => order.id === orderId);
+    decks.splice(index, 1);
+    res.sendStatus(204);
+}
+
 module.exports = {
     list,
     read,
     update,
-    create
+    create,
+    destroy
 }

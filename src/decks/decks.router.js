@@ -13,6 +13,7 @@ router
 router
     .route("/:deckId")
     .put(decksController.update)
+    .delete(decksController.destroy)
     .get(decksController.read)
 
     .all(methodNotAllowed)
