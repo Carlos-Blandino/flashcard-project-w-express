@@ -5,6 +5,9 @@ router
     .route("/")
     .get(decksController.list)
     .all(methodNotAllowed)
-
+router
+    .route("/_embed=cards")
+    .get(decksController.list)
+    .all(methodNotAllowed)
 
 module.exports = router;
