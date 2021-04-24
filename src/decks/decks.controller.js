@@ -1,36 +1,47 @@
+
+
 const path = require("path");
 //use existing decks data
 
 
- const decks = require(path.resolve("src/data/decks-data"));
- const cards = require(path.resolve("src/data/cards-data"));
+const decks = require(path.resolve("src/data/decks-data"));
+const cards = require(path.resolve("src/data/cards-data"));
 
 //use this function to assign ID's
 const nextId = require("../utils/nextId");
 
-function list(req, res,next){
-   // console.log('in list')
-    const embedCards = req.query._embed
+function list(req, res, next) {
 
-    if(embedCards === "cards") {
-const newDeck = decks.map( (deck) => {
-    const deckCards = cards.filter((card ) => {
-       return card.deckId === deck.id
-
+    const newDeck = decks.map((deck) => {
+        const deckCards = cards.filter((card) => {
+            return card.deckId === deck.id
+        })
+        deck.cards = deckCards
+        return deck
     })
-    deck.cards = deckCards
+    res.json(newDeck)
 
-    return deck
-})
+}
 
+function read(req,res,next) {
+    const deckId = req.params.deckId;
 
-        res.json({newDeck})
-    } else {
-        res.json({ decks})
+    if(deckId){
+       const foundDeck = decks.find((deck)=> {
+           return Number(deckId) === deck.id;
+       });
+        const newCards = cards.filter((card) => {
+            return card.deckId === Number(deckId)
+        })
+        foundDeck.cards = newCards
+        res.json(foundDeck)
     }
+
+
 
 }
 
 module.exports = {
     list,
+    read
 }
