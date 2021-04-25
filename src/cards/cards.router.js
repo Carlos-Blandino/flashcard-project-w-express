@@ -7,5 +7,8 @@ router
     .get(cardsController.list)
     .all(methodNotAllowed)
 
-
+router
+    .route("/:cardId")
+    .get(cardsController.read)
+    .all(methodNotAllowed)
 module.exports = router;
