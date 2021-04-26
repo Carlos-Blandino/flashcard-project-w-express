@@ -30,15 +30,15 @@
     "id": 5
   },
   {
-    "front": "b",
+    "front": "a",
     "back": "b",
     "deckId": 1,
-    "id": 7
+    "id": 6
   },
   {
     "front": "fdfdf",
     "back": "fdfdf",
     "deckId": 2,
-    "id": 8
+    "id": 7
   }
 ]
